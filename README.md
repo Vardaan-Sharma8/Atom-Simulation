@@ -1,4 +1,4 @@
-# Bohr Atom Simulation ⚛️
+# Bohr Atom Simulation
 
 A visual physics simulation built in C++ that models the Bohr atom. This project demonstrates electron orbits, trigonometric positioning, and (upcoming) wave mechanics for photon emission and absorption.
 
@@ -23,7 +23,7 @@ To build this project from source, you will need:
 This project uses CMake for building. From the root of the project directory, run:
 
 ```bash
-mkdir build
+mkdir buil
 cd build
 cmake ..
 cmake --build .
