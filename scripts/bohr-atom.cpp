@@ -64,7 +64,14 @@ public:
 
     Photon(Vector2 start_pos, Vector2 direction, float speed, float E) : start_pos(start_pos), direction(direction), 
                                                                         speed(speed), E(E), pos(start_pos){}
+
+    void Draw(){
+        DrawCircleV(pos, 3, YELLOW);
+        pos.x += (direction.x);
+        pos.y += (direction.y);
+    }
 };
+
 
 //---Functions---
 Vector2 EStartPos(int n){
@@ -74,6 +81,12 @@ Vector2 EStartPos(int n){
     return res;
 }
 
+
+bool operator==(Vector2 a, Vector2 b){
+    return (a.x == b.x && a.y == b.y);
+}
+
+
 //---main---
 int main(){
     int i = 0;
@@ -81,9 +94,10 @@ int main(){
     InitWindow(WIDTH, HEIGHT, TITLE);
     SetTargetFPS(60);
 
+    //Declaring Electron, Nucleus and Photon
     Nucleus nu(centre, 20);
     Electron e(EStartPos(1), 1, 10);
-    Photon ph((Vector2){0, 0}, (Vector2){-1, -1}, 50, 40);
+    Photon ph((Vector2){0, 0}, (Vector2){1.8, 1}, 50, 70);
 
     while(running){
         if(WindowShouldClose()){
@@ -95,9 +109,17 @@ int main(){
 
         nu.Draw();
         e.Draw(i);
+        ph.Draw();
+
+        if(e.pos == ph.pos){
+            if(baseRad <= ph.E){
+                e.n++;
+                ph.E -= baseRad;
+            }
+        }
 
         EndDrawing();
-        i++;
+        i++; //What even is this for? lol
     }
 
     return 0;
