@@ -58,12 +58,17 @@ public:
     Vector2 start_pos;
     Vector2 pos;
     float speed;
+    int radius = 3;
     Vector2 direction;
     Vector2 velocity;
     float E;
 
     Photon(Vector2 start_pos, Vector2 direction, float speed, float E) : start_pos(start_pos), direction(direction), 
                                                                         speed(speed), E(E), pos(start_pos){}
+
+    void DrawWave(){
+        
+    }
 
     void Draw(){
         DrawCircleV(pos, 3, YELLOW);
@@ -86,6 +91,37 @@ bool operator==(Vector2 a, Vector2 b){
     return (a.x == b.x && a.y == b.y);
 }
 
+bool operator<=(Vector2 a, Vector2 b){
+    return (a.x <= b.x || a.y <= b.y);
+}
+
+bool operator>=(Vector2 a, Vector2 b){
+    return (a.x >= b.x || a.y >= b.y);
+}
+
+Vector2 operator+(Vector2 a, Vector2 b){
+    return (Vector2){a.x + b.x, a.y + b.y};
+}
+
+Vector2 operator-(Vector2 a, Vector2 b){
+    return (Vector2){a.x - b.x, a.y - b.y};
+}
+
+Vector2 operator+(Vector2 a, int b){
+    return (Vector2){a.x + b, a.y + b};
+}
+
+void operator+(int b, Vector2 a){
+    a + b;
+}
+
+Vector2 operator-(Vector2 a, int b){
+    return (Vector2){a.x - b, a.y - b};
+}
+
+void operator-(int b, Vector2 a){
+    a - b;
+}
 
 //---main---
 int main(){
@@ -111,8 +147,9 @@ int main(){
         e.Draw(i);
         ph.Draw();
 
-        if(e.pos == ph.pos){
+        if((e.pos + e.radius) >= ph.pos || (e.pos - e.radius) <= ph.pos){
             if(baseRad <= ph.E){
+                std::cout << "It collided!! Yayyyy!!";
                 e.n++;
                 ph.E -= baseRad;
             }
